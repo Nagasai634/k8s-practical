@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-deploy-configmap
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+       app: env-deploy-configmap
+  template:
+    metadata:
+      labels:
+        app: env-deploy-configmap
+    spec:
+      containers:
+        - name: busybox
+          image: busybox
+          command: ["sleep","3600"]
+          envFrom:
+            - configMapRef:  #it will take whole configmap envs into pod you can access all env listed in configmap
+                  name: app-configmap

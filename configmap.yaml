@@ -1,0 +1,10 @@
+apiVersion: v1 
+kind: ConfigMap
+metadata:
+  name: app-configmap
+data:
+  APP_NAME: vardhan
+  APP_STAGE: production
+  new: |
+    hello all 
+    this is new batch of k8s

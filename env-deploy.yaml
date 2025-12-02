@@ -1,0 +1,27 @@
+#env-deployment-example
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+       app: env-deploy
+  template:
+    metadata:
+      labels:
+        app: env-deploy
+    spec:
+      volumes:
+        - name: my-volume
+          persistentVolumeClaim:
+            claimName: pvc-claim-default
+      containers:
+        - name: busybox
+          image: busybox
+          command: ['sh','-c','echo configmap is : $CONFIGMAPVAR && sleep 3600']
+          env:
+            - name: CONFIGMAPVAR
+              value: this is something new trying by env-deploy

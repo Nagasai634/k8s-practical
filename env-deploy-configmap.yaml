@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+       app: env-deploy
+  template:
+    metadata:
+      labels:
+        app: env-deploy
+    spec:
+      containers:
+        - name: busybox
+          image: busybox
+          command: ['sh','-c','echo your app name is : $CONFIGMAPVAR && sleep 3600']
+          env:
+            - name: CONFIGMAPVAR #key
+              valueFrom: #from configmap created before
+                configMapKeyRef:
+                  name: app-configmap #name of configmap which is created before the name you wrote in metadata(kubectl get cm)
+                  key:  APP_NAME #in data you have wrote that keys 

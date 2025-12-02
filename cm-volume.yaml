@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-deploy-configmap
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+       app: env-deploy-configmap
+  template:
+    metadata:
+      labels:
+        app: env-deploy-configmap
+    spec:
+      volumes:
+        - name: my-volume
+          configMap: 
+            name: app-configmap #keys from this configmap will be mounted as files which is previously created 
+      containers:
+        - name: busybox
+          image: busybox
+          command: ['sh','-c','cat /config/APP_NAME /config/APP_STAGE && sleep 3600']
+          volumeMounts:
+            - name: my-volume
+              mountPath: "/config"  #all keys from configmap will be mounted as files under this path

@@ -1,0 +1,9 @@
+#storageclasses
+apiVersion: storage.k8s.io/v1  
+kind: StorageClass
+metadata:
+  name: faster #user-friendly
+#this changes when vendor changes (vendors like gcp,aws,azure)
+provisioner: kubernetes.io/gce-pd  #you can visit the gke storageclass in google
+parameters:
+  type: pd-ssd  
