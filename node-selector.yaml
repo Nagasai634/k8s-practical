@@ -1,0 +1,22 @@
+#node-selector
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-selector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-selector
+  template:
+    metadata:
+      labels:
+        app: node-selector
+    spec:
+      nodeSelector:
+        disktype: ssd # key-value pair
+      containers:
+        - name: node-name
+          image: nginx
+          ports:
+          - containerPort: 80
