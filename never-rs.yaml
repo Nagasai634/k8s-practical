@@ -1,0 +1,11 @@
+#Never
+apiVersion: v1
+kind: Pod
+metadata:
+  name: never-pod
+spec:
+  restartPolicy: Never
+  containers:
+    - name: busybox
+      image: busybox
+      command: ['sh','-c','sleep 10  && randomstuffwqde']
