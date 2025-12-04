@@ -1,0 +1,30 @@
+#node-affinity
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-affinity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-affinity
+  template:
+    metadata:
+      labels:
+        app: node-affinity
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: #hardrule
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: disktype #key and values should match when you give in as operator in node labels
+                operator: In
+                values:
+                - ssd
+                - hdd
+      containers:
+        - name: node-affinity
+          image: nginx:latest
+          ports:
+            - containerPort: 80
