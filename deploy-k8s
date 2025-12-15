@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deploy-ingress-green
+  name: deploy-rollout-rollback
 spec:
   replicas: 1
   selector:
      matchLabels:
-       app: green-app
+       app: app
   template:
     metadata:
       labels:
-        app: green-app
+        app: app
     spec:
       containers:
-        - name: green-app
+        - name: app
           image: {{.Values.image}}
           ports:
             - containerPort: 80
