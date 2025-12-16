@@ -12,6 +12,8 @@ spec:
       labels:
         app: app
     spec:
+      imagePullSecrets:
+        - name: artifact-secret
       containers:
         - name: app
           image: {{.Values.image}}
