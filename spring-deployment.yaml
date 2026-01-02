@@ -18,7 +18,7 @@ spec:
         - name: spring
           image: us-central1-docker.pkg.dev/intrepid-axe-482904-f4/harness-repo/spring-petclinic:v1
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -29,6 +29,6 @@ spec:
     name: spring
   type: NodePort
   ports:
-  - targetPort: 80
+  - targetPort: 8080
     port: 80
     protocol: "TCP"                
